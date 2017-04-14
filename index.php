@@ -1,7 +1,6 @@
 <html>
 <head>
 <title>Random Number Generator</title>
-
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,8 +22,8 @@
 			</div>
 	
 			</div>
-	<div><a class='btn btn-danger' onclick="gamestart('')">Start </a> <button class='btn btn-danger' id='result' onclick="myStopFunction();result();">Stop </button></div></div>		
-	
+	<div id='final' ><a class='btn btn-danger' onclick="gamestart('');clickCounter()">Start </a> <button class='btn btn-danger' id='result' onclick="myStopFunction();result();">Stop </button></div></div>		
+	<div id='reset' style='display:none;text-align:center;color:red;'>"Just chill have a cofee" Life will Refill in next 10 min bye.. </div>
 	
 	
 	</div>
@@ -63,9 +62,7 @@ function myTimer() {
 
 /*Stop Timer*/
 function myStopFunction() {
-		
     clearInterval(myVar);
-	
 }
 /*Result Function */
 function result(){
@@ -91,6 +88,30 @@ function result(){
 		document.getElementById("oops").style.display = "block";
 	}
 }
+<!-- Function for checking clicks  -->
+function clickCounter() {
+    if(localStorage.clickcount<1){
+		myStopFunction();
+    document.getElementById('final').style.display ='none';
+    document.getElementById('reset').style.display ='block';
+   setTimeout(Reset, 600000)
+    }
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)-1;
+        } else {
+            localStorage.clickcount = 2;
+        }
+        document.getElementById("result").innerHTML = "Life Remaining " + localStorage.clickcount ;
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}
+<!-- Function for reset the localstorage  -->
+function Reset(){
+localStorage.clear();
+ window.location='http://localhost/rahul/random_int/';
+	}
 
 </script>
 
